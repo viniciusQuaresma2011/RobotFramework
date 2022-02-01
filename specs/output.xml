@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.3 (Python 3.10.2 on win32)" generated="20220201 13:55:18.103" rpa="false" schemaversion="2">
+<suite id="s1" name="CreateCharacters" source="C:\projects\marvel-api\specs\CreateCharacters.robot">
+<test id="s1-t1" name="Deve Cadastrar Um Personagem">
+<kw name="Account And Set Headers">
+<arg>vuribi@gmail.com</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{usuario}</var>
+<arg>email=${email}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220201 13:55:18.312" level="INFO">&amp;{usuario} = { email=vuribi@gmail.com }</msg>
+<status status="PASS" starttime="20220201 13:55:18.311" endtime="20220201 13:55:18.312"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>http://marvel.qaninja.academy/accounts</arg>
+<arg>json=${usuario}</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220201 13:55:18.621" level="INFO">POST Request : url=http://marvel.qaninja.academy/accounts 
+ path_url=/accounts 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '29', 'Content-Type': 'application/json'} 
+ body=b'{"email": "vuribi@gmail.com"}' 
+ </msg>
+<msg timestamp="20220201 13:55:18.621" level="INFO">POST Response : url=http://marvel.qaninja.academy/accounts 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '41', 'Etag': 'W/"29-fJuxmjFLvsirZ78l4KWmDf8CGo8"', 'Date': 'Tue, 01 Feb 2022 16:55:18 GMT', 'Via': '1.1 vegur'} 
+ body={"client_key":"61f193a5c94b5f00166cc66a"} 
+ </msg>
+<msg timestamp="20220201 13:55:18.622" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220201 13:55:18.312" endtime="20220201 13:55:18.622"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${client_key}</var>
+<arg>${response.json()}[client_key]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220201 13:55:18.623" level="INFO">${client_key} = 61f193a5c94b5f00166cc66a</msg>
+<status status="PASS" starttime="20220201 13:55:18.622" endtime="20220201 13:55:18.623"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{HEADERS}</var>
+<arg>client_key=${client_key}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220201 13:55:18.625" level="INFO">&amp;{HEADERS} = { client_key=61f193a5c94b5f00166cc66a }</msg>
+<status status="PASS" starttime="20220201 13:55:18.624" endtime="20220201 13:55:18.625"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${HEADERS}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20220201 13:55:18.625" level="INFO">${HEADERS} = {'client_key': '61f193a5c94b5f00166cc66a'}</msg>
+<status status="PASS" starttime="20220201 13:55:18.625" endtime="20220201 13:55:18.626"/>
+</kw>
+<status status="PASS" starttime="20220201 13:55:18.310" endtime="20220201 13:55:18.626"/>
+</kw>
+<kw name="Factory Thanos">
+<var>&amp;{personagem}</var>
+<msg timestamp="20220201 13:55:18.629" level="FAIL">No keyword with name 'Factory Thanos' found.</msg>
+<status status="FAIL" starttime="20220201 13:55:18.629" endtime="20220201 13:55:18.629"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<arg>http://marvel.qaninja.academy/characters</arg>
+<arg>json=${personagem}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request.</doc>
+<status status="NOT RUN" starttime="20220201 13:55:18.631" endtime="20220201 13:55:18.632"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" starttime="20220201 13:55:18.632" endtime="20220201 13:55:18.632"/>
+</kw>
+<status status="FAIL" starttime="20220201 13:55:18.309" endtime="20220201 13:55:18.633">No keyword with name 'Factory Thanos' found.</status>
+</test>
+<doc>Suite de Teste do cadastro de personagens da API da marvel</doc>
+<status status="FAIL" starttime="20220201 13:55:18.105" endtime="20220201 13:55:18.637"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="CreateCharacters">CreateCharacters</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220201 13:55:18.304" level="ERROR">Error in file 'C:\projects\marvel-api\specs\CreateCharacters.robot' on line 6: Test library 'C:\projects\marvel-api\specs\resources\factories\Thanos.py' does not exist.</msg>
+</errors>
+</robot>
